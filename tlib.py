@@ -67,6 +67,28 @@ class GameObject():
 			return False
 		return True
 
+	# These following functions help objects to move.
+
+	#This gives the distance as a float
+	def dis(self, other):
+		return m.sqrt((self.turtle.xcor() - other.turtle.xcor())**2 + (self.turtle.ycor() - other.turtle.ycor())**2)
+
+	# This is a vector (as a list) of the full distance
+	def full_vec(self, other):
+		return [
+			other.turtle.xcor() - self.turtle.xcor(), other.turtle.ycor() - self.turtle.ycor()
+		]
+
+	# This is the vector pointing in the same direction, but only one unit
+	def unit_vec(self, other):
+		return [
+			self.full_vec(other)[0] / self.dis(other), self.full_vec(other)[1] / self.dis(other)
+		]
+
+	# This moves said object in the distance of a given vector
+	def move(self, vec):
+		self.turtle.goto(self.turtle.xcor() + vec[0], self.turtle.ycor() + vec[1])
+
 class StaticBox(GameObject):
 	def __init__(self, color, x, y, width, height, speed = 0, shape = 'square'):
 		# Fixed bug here- needs to be in same order as super()
