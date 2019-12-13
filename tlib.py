@@ -3,6 +3,7 @@ import time as ti
 import random as r
 import math as m
 
+# Will add more functionality here later.
 def end():
 	t.bye()
 
@@ -38,6 +39,7 @@ class GameObject():
 		self.speed = speed
 		self.wid = width
 		self.high = height
+		self.x, self.y = x, y
 
 	# For binding simple movement to keys
 	def up(self):
@@ -67,8 +69,10 @@ class GameObject():
 
 class StaticBox(GameObject):
 	def __init__(self, color, x, y, width, height, speed = 0, shape = 'square'):
-		super().__init__(color, x, y, width, height, speed, shape)
+		# Fixed bug here- needs to be in same order as super()
+		super().__init__(color, speed, x, y, width, height, shape)
 
+	# Aligning with other coordinates - tested.
 	def align_left(self, coor):
 		self.turtle.goto(coor + self.wid/2, self.y)
 	def align_right(self, coor):
