@@ -3,6 +3,9 @@ import time as ti
 import random as r
 import math as m
 
+def end():
+	t.bye()
+
 class Window():
 	def __init__(self, vertical, horizontal, color, exitKey, name):
 		self.screen = t.Screen()
@@ -10,7 +13,7 @@ class Window():
 		self.screen.bgcolor(color)
 		self.screen.title(name)
 		self.screen.listen()
-		self.screen.onkeypress(t.bye, exitKey)
+		self.screen.onkeypress(end, exitKey)
 		self.screen.tracer(0)
 
 	def run(self):
@@ -53,6 +56,14 @@ class GameObject():
 		window.screen.onkeypress(self.down, bindsList[1])
 		window.screen.onkeypress(self.left, bindsList[2])
 		window.screen.onkeypress(self.right, bindsList[3])
+
+	# If two entities have collided
+	def collided(self, other):
+		if abs(other.turtle.xcor() - self.turtle.xcor()) > other.wid:
+			return False
+		elif abs(other.turtle.ycor() - self.turtle.ycor()) > other.high:
+			return False
+		return True
 
 class StaticBox(GameObject):
 	def __init__(self, color, x, y, width, height, speed = 0, shape = 'square'):
